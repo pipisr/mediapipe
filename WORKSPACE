@@ -2,6 +2,19 @@ workspace(name = "mediapipe")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+http_archive(
+    name = "rules_xcodeproj",
+    sha256 = "5baccdd6a2734a0adeb9cb6175691d0609f8bdbd7c5f516e828d0df744ee9f6c",
+    url = "https://github.com/MobileNativeFoundation/rules_xcodeproj/releases/download/1.9.1/release.tar.gz",
+)
+
+load(
+    "@rules_xcodeproj//xcodeproj:repositories.bzl",
+    "xcodeproj_rules_dependencies",
+)
+
+xcodeproj_rules_dependencies()
+
 # Protobuf expects an //external:python_headers target
 bind(
     name = "python_headers",
