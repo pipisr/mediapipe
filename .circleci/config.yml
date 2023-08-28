@@ -8,7 +8,7 @@ jobs:
   build-ios:
     macos:
       xcode: 14.2
-    resource_class: macos.m1.medium.gen1
+    resource_class: macos.m1.large.gen1
     environment:
       GLOG_logtostderr: 1
     steps:
@@ -21,8 +21,15 @@ jobs:
       - run: pip install -r requirements.txt
       - run: pip install --user future six
       - run: python3 mediapipe/examples/ios/link_local_profiles.py
-      - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
+      # - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
       - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      - store_artifacts:
+          path: ./bazel-out/
+          destination: mediapipe
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
