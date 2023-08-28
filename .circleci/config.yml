@@ -2,19 +2,13 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-orbs:
-  node: circleci/node@5.0.2
-  macos: circleci/macos@2
-  ruby: circleci/ruby@1.2.0
-  python: circleci/python@1.5.0
-
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build-ios:
     macos:
-      xcode: 14.3.1
-    resource_class: medium
+      xcode: 14.2
+    resource_class: macos.m1.large.gen1
     environment:
       GLOG_logtostderr: 1
     steps:
@@ -25,7 +19,8 @@ jobs:
       - run: python --version
       - run: pip --version
       - run: pip install -r requirements.txt
-      - run: pip install future six
+      - run: pip install --user future six
+      - run: python3 mediapipe/examples/ios/link_local_profiles.py
       - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
       - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
 
