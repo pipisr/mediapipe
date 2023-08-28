@@ -8,7 +8,7 @@ jobs:
   build-ios:
     macos:
       xcode: 14.2
-    resource_class: macos.m1.large.gen1
+    resource_class: macos.m1.medium.gen1
     environment:
       GLOG_logtostderr: 1
     steps:
