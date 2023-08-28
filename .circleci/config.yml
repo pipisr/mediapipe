@@ -19,14 +19,15 @@ jobs:
       GLOG_logtostderr: 1
     steps:
       - checkout
-      - run: brew install bazel
+      - run: brew install bazelisk
       - run: brew install opencv@3
       - run: brew uninstall --ignore-dependencies glog
       - run: python --version
       - run: pip --version
       - run: pip install -r requirements.txt
-      - run: pip install –user future six
+      - run: pip install future six
       - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
+      - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
