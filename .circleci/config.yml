@@ -22,7 +22,9 @@ jobs:
       - run: pip install --user future six
       - run: python3 mediapipe/examples/ios/link_local_profiles.py
       # - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
-      - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
+      - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtracker:HandTracker
+      - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtracker:all
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
