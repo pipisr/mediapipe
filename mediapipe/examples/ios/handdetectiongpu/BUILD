@@ -21,6 +21,11 @@ load(
     "BUNDLE_ID_PREFIX",
     "example_provisioning",
 )
+load(
+    "@rules_xcodeproj//xcodeproj:defs.bzl",
+    "top_level_target",
+    "xcodeproj",
+)
 
 licenses(["notice"])
 
@@ -29,6 +34,20 @@ MIN_IOS_VERSION = "12.0"
 alias(
     name = "handdetectiongpu",
     actual = "HandDetectionGpuApp",
+)
+
+xcodeproj(
+    name = "xcodeproj",
+    project_name = "App",
+    tags = ["manual"],
+    top_level_targets = [
+        top_level_target(":App", target_environments = ["device", "simulator"]),
+    ],
+    minimum_os_version = MIN_IOS_VERSION,
+    deps = [
+        ":HandDetectionGpuAppLibrary",
+        "@ios_opencv//:OpencvFramework",
+    ],
 )
 
 ios_application(
