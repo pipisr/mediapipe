@@ -22,7 +22,7 @@ jobs:
           background: true
       - run: brew install opencv@3
       - run: brew uninstall --ignore-dependencies glog
-      - run: FRAMEWORK_NAME=MediaPipeTasksCommon MPP_BUILD_VERSION=0.1.0 sh mediapipe/tasks/ios/build_ios_framework.sh
+      - run: FRAMEWORK_NAME=MediaPipeTasksCommon MPP_BUILD_VERSION=0.1.0 sh mediapipe/tasks/ios/build_ios_framework.sh --sandbox_debug
       - run: FRAMEWORK_NAME=MediaPipeTasksVision MPP_BUILD_VERSION=0.1.0 sh mediapipe/tasks/ios/build_ios_framework.sh
       # - run: python3 mediapipe/examples/ios/link_local_profiles.py
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
