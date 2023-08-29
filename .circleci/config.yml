@@ -14,8 +14,8 @@ version: 2.1
 jobs:
   build-ios:
     macos:
-      xcode: 14.3.2
-    resource_class: medium
+      xcode: 14.3.1
+    resource_class: large
     environment:
       GLOG_logtostderr: 1
       HOMEBREW_NO_AUTO_UPDATE: 1
