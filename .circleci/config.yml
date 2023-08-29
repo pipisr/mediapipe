@@ -8,7 +8,7 @@ jobs:
   build-ios:
     macos:
       xcode: 14.2
-    resource_class: macos.m1.large.gen1
+    resource_class: medium
     environment:
       GLOG_logtostderr: 1
       HOMEBREW_NO_AUTO_UPDATE: 1
@@ -16,13 +16,14 @@ jobs:
       - checkout
       - run:
           command: |
-            brew install bazelisk
+            brew install bazelisk cmake
             pip install -r requirements.txt
             pip install --user future six
           background: true
       - run: brew install opencv@3
       - run: brew uninstall --ignore-dependencies glog
-      - run: FRAMEWORK_NAME=MediaPipeTasksCommon MPP_BUILD_VERSION=0.1.0 sh build_ios_framework.sh
+      - run: FRAMEWORK_NAME=MediaPipeTasksCommon MPP_BUILD_VERSION=0.1.0 sh mediapipe/tasks/ios/build_ios_framework.sh
+      - run: FRAMEWORK_NAME=MediaPipeTasksVision MPP_BUILD_VERSION=0.1.0 sh mediapipe/tasks/ios/build_ios_framework.sh
       # - run: python3 mediapipe/examples/ios/link_local_profiles.py
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handdetectiongpu:HandDetectionGpuAppLibrary
