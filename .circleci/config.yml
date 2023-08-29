@@ -2,28 +2,18 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# orbs:
-#   node: circleci/node@5.0.2
-#   macos: circleci/macos@2
-#   ruby: circleci/ruby@1.2.0
-#   android: circleci/android@1.0
-#   python: circleci/python@1.5.0
-
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build-ios:
     macos:
-      xcode: 14.3.1
-    resource_class: large
+      xcode: 14.2
+    resource_class: medium
     environment:
       GLOG_logtostderr: 1
       HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - checkout
-      # - node/install-packages:
-      #     pkg-manager: yarn
-      # - run: yarn install --frozen-lockfile
       - run: brew install bazelisk cmake
       - run: pip install -r requirements.txt
       - run: pip install --user future six
