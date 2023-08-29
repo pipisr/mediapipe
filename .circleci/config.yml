@@ -11,6 +11,7 @@ jobs:
     resource_class: macos.m1.large.gen1
     environment:
       GLOG_logtostderr: 1
+      HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - checkout
       - run:
@@ -21,13 +22,10 @@ jobs:
           background: true
       - run: brew install opencv@3
       - run: brew uninstall --ignore-dependencies glog
+      - run: FRAMEWORK_NAME=MediaPipeTasksCommon MPP_BUILD_VERSION=0.1.0 sh build_ios_framework.sh
       # - run: python3 mediapipe/examples/ios/link_local_profiles.py
-      # - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handdetectiongpu:HandDetectionGpuAppLibrary
-      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
-      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
-      # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:HandTrackingGpuAppLibrary
       - store_artifacts:
           path: ./bazel-bin/mediapipe/examples/ios/
           destination: mediapipe
