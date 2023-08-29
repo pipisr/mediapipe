@@ -549,13 +549,6 @@ load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_d
 build_bazel_rules_nodejs_dependencies()
 
 # fetches nodejs, npm, and yarn
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
-node_repositories()
-yarn_install(
-    name = "npm",
-    package_json = "@//:package.json",
-    yarn_lock = "@//:yarn.lock",
-)
 
 # Protobuf for Node dependencies
 http_archive(
