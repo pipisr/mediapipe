@@ -12,19 +12,24 @@ jobs:
     environment:
       GLOG_logtostderr: 1
     steps:
+      - run:
+        command: |
+          brew install bazelisk
+          brew install opencv@3
+          brew uninstall --ignore-dependencies glog
+          pip install -r requirements.txt
+          pip install --user future six
+        background: true
       - checkout
-      - run: brew install bazelisk
-      - run: brew install opencv@3
-      - run: brew uninstall --ignore-dependencies glog
-      - run: python --version
-      - run: pip --version
-      - run: pip install -r requirements.txt
-      - run: pip install --user future six
+      # - run: python --version
+      # - run: pip --version
+      # - run: pip install -r requirements.txt
+      # - run: pip install --user future six
       - run: echo $PROVISIONING_PROFILE | base64 --decode > mediapipe/provisioning_profile.mobileprovision
       # - run: python3 mediapipe/examples/ios/link_local_profiles.py
       # - run: bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/hello_world:hello_world
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handdetectiongpu:HandDetectionGpuAppLibrary
-      - run: bazel run mediapipe/examples/ios/handdetectiongpu:xcodeproj
+      - run: bazel run -c opt --config=ios_arm64 mediapipe/examples/ios/handdetectiongpu:xcodeproj
       - run: bazelisk build --enable_bzlmod -c opt --config=ios_arm64 mediapipe/examples/ios/handdetectiongpu:HandDetectionGpuApp
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handtrackinggpu:all
       # - run: bazel build -c opt --config=ios_arm64 mediapipe/examples/ios/handdetectiongpu:all

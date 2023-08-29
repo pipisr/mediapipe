@@ -41,11 +41,21 @@ xcodeproj(
     project_name = "App",
     tags = ["manual"],
     top_level_targets = [
-        top_level_target(":App", target_environments = ["device", "simulator"]),
+        top_level_target(":HandDetectionGpuApp", target_environments = ["device", "simulator"]),
+    ]
+)
+
+ios_framework(
+    name = "HandTracker",
+    hdrs = [
+        "HandTracker.h",
     ],
-    minimum_os_version = MIN_IOS_VERSION,
+    infoplists = ["Info.plist"],
+    bundle_id = "dev.noppe.HandTracker",
+    families = ["iphone", "ipad"],
+    minimum_os_version = "10.0",
     deps = [
-        ":HandDetectionGpuAppLibrary",
+        ":HandTrackerLibrary",
         "@ios_opencv//:OpencvFramework",
     ],
 )
