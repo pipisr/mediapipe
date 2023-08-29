@@ -13,13 +13,13 @@ jobs:
       GLOG_logtostderr: 1
     steps:
       - run:
-        command: |
-          brew install bazelisk
-          brew install opencv@3
-          brew uninstall --ignore-dependencies glog
-          pip install -r requirements.txt
-          pip install --user future six
-        background: true
+          command: |
+            brew install bazelisk
+            brew install opencv@3
+            brew uninstall --ignore-dependencies glog
+            pip install -r requirements.txt
+            pip install --user future six
+          background: true
       - checkout
       # - run: python --version
       # - run: pip --version
